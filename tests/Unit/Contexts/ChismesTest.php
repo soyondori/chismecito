@@ -18,13 +18,13 @@ final class ChismesTest extends TestCase
         $args = [
             'title' => 'Chisme test',
             'content' => '<h1>Content</h1>',
-            'user_id' => $user->id
+            'author_id' => $user->id
         ];
 
         $chisme = Chismes::create($args);
 
         $this->assertEquals($args['title'], $chisme->title);
         $this->assertEquals($args['content'], $chisme->content);
-        $this->assertEquals($args['user_id'], $chisme->user_id);
+        $this->assertEquals($args['author_id'], $chisme->author_id);
     }
 }

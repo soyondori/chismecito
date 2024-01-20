@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->longText('content');
             $table->timestamps();
-            $table->foreignUuid('user_id')
+            $table->foreignUuid('author_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
