@@ -24,10 +24,10 @@ class ApiChismeController extends Controller
      *          ),
      *      ),
      *      @OA\Response(
-     *          response=422,
-     *          description="Validation errors",
+     *          response=401,
+     *          description="Unauthorized",
      *          @OA\JsonContent(),
-     *      ),
+     *      )
      * )
      */
     public function index()
@@ -56,10 +56,20 @@ class ApiChismeController extends Controller
      *          description="Validation errors",
      *          @OA\JsonContent(),
      *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(),
+     *      )
      * )
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => ['required', 'string', 'max:60'],
+            'content' => ['required', 'string']
+        ]);
+
         $args = $request->all();
         $args['author_id'] = $request->user()->id;
         $chisme = Chismes::create($args);

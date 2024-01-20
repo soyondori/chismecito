@@ -60,6 +60,34 @@ class ApiChismeTest extends TestCase
         $response->assertCreated();
     }
 
+    public function test_create_invalid_chisme(): void
+    {
+        Sanctum::actingAs(
+            User::factory()->create(),
+            ['*']
+        );
+
+        $response = $this
+            ->withHeader('accept','application/json')
+            ->postJson('/api/chismes', [
+                'content' => '<h1>Fijate paty...</h1>'
+            ]);
+
+        $response->assertUnprocessable();
+    }
+
+    public function test_create_chisme_unauthenticated(): void
+    {
+        $response = $this
+            ->withHeader('accept','application/json')
+            ->postJson('/api/chismes', [
+                'title' => 'A really GOOD chisme',
+                'content' => '<h1>Fijate paty...</h1>'
+            ]);
+
+        $response->assertUnauthorized();
+    }
+
     protected function jsonChismeStructure()
     {
         return [
