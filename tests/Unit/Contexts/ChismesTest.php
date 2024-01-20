@@ -25,6 +25,7 @@ final class ChismesTest extends TestCase
 
         $this->assertEquals($args['title'], $chisme->title);
         $this->assertEquals($args['content'], $chisme->content);
-        $this->assertEquals($args['author_id'], $chisme->author_id);
+        $this->assertEquals($args['author_id'], $chisme->author->id);
+        $this->assertEquals($user->name, $chisme->author->name);
     }
 }
