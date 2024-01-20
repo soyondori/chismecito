@@ -21,7 +21,7 @@ class Chismes
 
     public static function getAll($with = []): Collection
     {
-        return Chisme::with($with)->get();
+        return Chisme::with($with)->latest()->get();
     }
 
     public static function get(string $id, $with = []): Chisme

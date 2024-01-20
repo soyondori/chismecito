@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Contexts\Chismes;
 use App\Models\Chisme;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ChismeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        //
+        return view('chismes.index', [
+            'chismes' => Chismes::getAll(['author'])
+        ]);
     }
 
     /**
@@ -20,7 +24,7 @@ class ChismeController extends Controller
      */
     public function create()
     {
-        //
+        return view('chismes.create');
     }
 
     /**
@@ -28,7 +32,10 @@ class ChismeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $args = $request->all();
+        $args['author_id'] = $request->user()->id;
+        Chismes::create($args);
+        return redirect()->route('chismes');
     }
 
     /**
