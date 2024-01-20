@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 use App\Models\Chisme;
 use App\Models\ChismeComment;
+use App\Models\AuthorComment;
 
 class User extends Authenticatable
 {
@@ -53,8 +54,18 @@ class User extends Authenticatable
         return $this->hasMany(Chisme::class);
     }
 
-    public function chismesAuthoredComments(): HasMany
+    public function chismesPostedComments(): HasMany
     {
         return $this->hasMany(ChismeComment::class, 'author_id');
+    }
+
+    public function authorPostedComments(): HasMany
+    {
+        return $this->hasMany(AuthorComment::class, 'author_id');
+    }
+
+    public function authorReceivedComments(): HasMany
+    {
+        return $this->hasMany(AuthorComment::class, 'recipient_id');
     }
 }
