@@ -32,9 +32,7 @@ class ApiChismeController extends Controller
      */
     public function index()
     {
-        $chismes = Chismes::getAll(
-            with: ['comments', 'author']
-        );
+        $chismes = Chismes::getAll(with: ['comments', 'author']);
 
         return ChismeResource::collection($chismes);
     }
@@ -101,7 +99,7 @@ class ApiChismeController extends Controller
      */
     public function show(Request $request, string $id)
     {
-        return Chismes::get($id);
+        return Chismes::get($id, with: ['comments', 'author']);
     }
 
 }

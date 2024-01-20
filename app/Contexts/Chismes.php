@@ -24,9 +24,9 @@ class Chismes
         return Chisme::with($with)->get();
     }
 
-    public static function get(string $id): Chisme
+    public static function get(string $id, $with = []): Chisme
     {
-        return Chisme::findOrFail($id);
+        return Chisme::with($with)->findOrFail($id);
     }
 
 }

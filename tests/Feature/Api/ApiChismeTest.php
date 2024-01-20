@@ -128,7 +128,7 @@ class ApiChismeTest extends TestCase
             ->get('/api/chismes/'. $chisme->id);
 
         $response->assertOk();
-        $response->assertJsonStructure($this->jsonChismeSimpleStructure());
+        $response->assertJsonStructure($this->jsonChismeStructure());
     }
 
     protected function jsonChismeStructure()
@@ -150,15 +150,6 @@ class ApiChismeTest extends TestCase
                     'content',
                 ]
             ]
-        ];
-    }
-
-    protected function jsonChismeSimpleStructure()
-    {
-        return [
-            'title',
-            'content',
-            'author_id'
         ];
     }
 }
