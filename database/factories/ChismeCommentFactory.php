@@ -4,11 +4,12 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
+use App\Models\Chisme;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Chisme>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ChismeComment>
  */
-class ChismeFactory extends Factory
+class ChismeCommentFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +19,8 @@ class ChismeFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->catchPhrase(),
-            'content' => fake()->realText($maxNbChars = 500, $indexSize = 2),
+            'content' => fake()->realText($maxNbChars = 100, $indexSize = 2),
+            'chisme_id' => Chisme::factory(),
             'author_id' => User::factory()
         ];
     }

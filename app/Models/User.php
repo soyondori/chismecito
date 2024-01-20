@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 use App\Models\Chisme;
+use App\Models\ChismeComment;
 
 class User extends Authenticatable
 {
@@ -50,5 +51,10 @@ class User extends Authenticatable
     public function chismes(): HasMany
     {
         return $this->hasMany(Chisme::class);
+    }
+
+    public function chismesAuthoredComments(): HasMany
+    {
+        return $this->hasMany(ChismeComment::class, 'author_id');
     }
 }

@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
-use App\Models\ChismeComment;
+use App\Models\Chisme;
 
-class Chisme extends Model
+
+class ChismeComment extends Model
 {
     use HasUuids;
     use HasFactory;
@@ -21,8 +21,8 @@ class Chisme extends Model
      * @var array
      */
     protected $fillable = [
-        'title',
         'content',
+        'chisme_id',
         'author_id'
     ];
 
@@ -31,8 +31,8 @@ class Chisme extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function comments(): HasMany
+    public function chisme(): BelongsTo
     {
-        return $this->hasMany(ChismeComment::class);
+        return $this->belongsTo(Chisme::class);
     }
 }
