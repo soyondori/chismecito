@@ -28,8 +28,8 @@
                             }
                         }
                     },
-                    "422": {
-                        "description": "Validation errors",
+                    "401": {
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -65,6 +65,44 @@
                         "content": {
                             "application/json": {
                                 "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": {
+                    "bearerAuth": {}
+                }
+            }
+        },
+        "/api/chismes/{id}": {
+            "get": {
+                "tags": [
+                    "Chismes"
+                ],
+                "operationId": "getChisme",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ChismeResource"
+                                }
                             }
                         }
                     }
@@ -167,6 +205,16 @@
                 "type": "object",
                 "xml": {
                     "name": "User"
+                }
+            }
+        },
+        "responses": {
+            "401": {
+                "description": "Unauthorized",
+                "content": {
+                    "application/json": {
+                        "schema": {}
+                    }
                 }
             }
         },

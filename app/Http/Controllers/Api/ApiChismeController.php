@@ -77,11 +77,31 @@ class ApiChismeController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *      path="/api/chismes/{id}",
+     *      tags={"Chismes"},
+     *      operationId="getChisme",
+     *      security={"bearerAuth": {}},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/ChismeResource"))
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(),
+     *      )
+     * )
      */
-    public function show(Request $request)
+    public function show(Request $request, string $id)
     {
-        //
+        return Chismes::get($id);
     }
 
 }

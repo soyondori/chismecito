@@ -58,6 +58,7 @@ class ApiChismeTest extends TestCase
             ]);
 
         $response->assertCreated();
+        $response->assertJsonStructure($this->jsonChismeStructure());
     }
 
     public function test_create_invalid_chisme(): void
@@ -88,6 +89,48 @@ class ApiChismeTest extends TestCase
         $response->assertUnauthorized();
     }
 
+    public function test_get_chisme_unauthenticated(): void
+    {
+        $response = $this
+            ->withHeader('accept','application/json')
+            ->get('/api/chismes/test');
+
+        $response->assertUnauthorized();
+    }
+
+    public function test_get_invalid_chisme(): void
+    {
+        Sanctum::actingAs(
+            User::factory()->create(),
+            ['*']
+        );
+
+        $response = $this
+            ->withHeader('accept','application/json')
+            ->get('/api/chismes/test');
+
+        $response->assertNotFound();
+    }
+
+    public function test_get_chisme(): void
+    {
+
+        $author = User::factory()->create();
+        $chisme = Chisme::factory(['author_id' => $author->id])->create();
+
+        Sanctum::actingAs(
+            User::factory()->create(),
+            ['*']
+        );
+
+        $response = $this
+            ->withHeader('accept','application/json')
+            ->get('/api/chismes/'. $chisme->id);
+
+        $response->assertOk();
+        $response->assertJsonStructure($this->jsonChismeSimpleStructure());
+    }
+
     protected function jsonChismeStructure()
     {
         return [
@@ -107,6 +150,15 @@ class ApiChismeTest extends TestCase
                     'content',
                 ]
             ]
+        ];
+    }
+
+    protected function jsonChismeSimpleStructure()
+    {
+        return [
+            'title',
+            'content',
+            'author_id'
         ];
     }
 }
