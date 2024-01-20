@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ChismeController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/chismes', [ChismeController::class, 'store'])->name('chismes.store');
     Route::get('/chismes/{id}', [ChismeController::class, 'show'])->name('chismes.show');
     Route::post('/chismes/comments', [ChismeController::class, 'comment'])->name('chismes.comments.store');
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/author/{id}', [AuthorController::class, 'show'])->name('authors.show');
+    Route::post('/author/comments', [AuthorController::class, 'comment'])->name('authors.comments.store');
 });
 
 Route::middleware('auth')->group(function () {

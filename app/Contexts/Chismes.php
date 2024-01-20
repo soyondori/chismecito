@@ -31,7 +31,7 @@ class Chismes
 
     public static function getComments(string $id, $with = []): Collection
     {
-        return ChismeComment::where('chisme_id', $id)->with($with)->get();
+        return ChismeComment::where('chisme_id', $id)->latest()->with($with)->get();
     }
 
 }

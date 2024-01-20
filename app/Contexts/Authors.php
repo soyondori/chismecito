@@ -21,4 +21,9 @@ class Authors
     {
         return AuthorComment::create($args);
     }
+
+    public static function getComments(string $id, $with = []): Collection
+    {
+        return AuthorComment::where('recipient_id', $id)->latest()->with($with)->get();
+    }
 }
