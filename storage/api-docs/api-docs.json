@@ -8,6 +8,78 @@
         "version": "0.1.0"
     },
     "paths": {
+        "/api/authors": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "operationId": "getAuthors",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AuthorResource"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": {
+                    "bearerAuth": {}
+                }
+            }
+        },
+        "/api/authors/{id}": {
+            "get": {
+                "tags": [
+                    "Authors"
+                ],
+                "operationId": "getAuthor",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthorResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": {
+                    "bearerAuth": {}
+                }
+            }
+        },
         "/api/chismes": {
             "get": {
                 "tags": [
@@ -96,6 +168,14 @@
                     }
                 ],
                 "responses": {
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
                     "200": {
                         "description": "Successful operation",
                         "content": {
@@ -115,6 +195,72 @@
     },
     "components": {
         "schemas": {
+            "AuthorCommentResource": {
+                "title": "Author Comment",
+                "description": "Author comment model",
+                "required": [
+                    "id",
+                    "content",
+                    "author_id",
+                    "recipient_id"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Class AuthorCommentResource",
+                        "type": "string"
+                    },
+                    "content": {
+                        "type": "string"
+                    },
+                    "author_id": {
+                        "type": "string"
+                    },
+                    "recipient_id": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Author Comment"
+                }
+            },
+            "AuthorResource": {
+                "title": "Author",
+                "description": "Author model",
+                "required": [
+                    "id",
+                    "name",
+                    "email"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Class AuthorResource",
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "chismes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ChismeResource"
+                        }
+                    },
+                    "comments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AuthorCommentResource"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Author"
+                }
+            },
             "ChismeCommentResource": {
                 "title": "Chisme Comment",
                 "description": "Chisme comment model",
@@ -208,16 +354,6 @@
                 }
             }
         },
-        "responses": {
-            "401": {
-                "description": "Unauthorized",
-                "content": {
-                    "application/json": {
-                        "schema": {}
-                    }
-                }
-            }
-        },
         "requestBodies": {
             "Chisme": {
                 "required": true,
@@ -251,6 +387,10 @@
         {
             "name": "Chismes",
             "description": "API Endpoints of Chismes"
+        },
+        {
+            "name": "Authors",
+            "description": "API Endpoints of Authors"
         }
     ]
 }

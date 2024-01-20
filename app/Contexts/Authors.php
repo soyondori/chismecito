@@ -9,10 +9,10 @@ class Authors
 {
     public static function getAll($with = []): Collection
     {
-        return User::with($with)->get();
+        return User::with(['chismes'])->get();
     }
 
-    public static function get(string $id, $with = []): Collection
+    public static function get(string $id, $with = []): User
     {
         return User::with($with)->findOrFail($id);
     }

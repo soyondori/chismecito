@@ -51,7 +51,7 @@ class User extends Authenticatable
 
     public function chismes(): HasMany
     {
-        return $this->hasMany(Chisme::class);
+        return $this->hasMany(Chisme::class, 'author_id');
     }
 
     public function chismesPostedComments(): HasMany

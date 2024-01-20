@@ -16,6 +16,10 @@ use OpenApi\Annotations as OA;
  *     name="Chismes",
  *     description="API Endpoints of Chismes"
  * )
+ * @OA\Tag(
+ *     name="Authors",
+ *     description="API Endpoints of Authors"
+ * )
  */
 class ApiChismes
 {

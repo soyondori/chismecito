@@ -86,14 +86,14 @@ class ApiChismeController extends Controller
      *          required=true
      *      ),
      *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/ChismeResource"))
-     *      ),
-     *      @OA\Response(
      *          response=401,
      *          description="Unauthorized",
      *          @OA\JsonContent(),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(ref="#/components/schemas/ChismeResource"))
      *      )
      * )
      */
