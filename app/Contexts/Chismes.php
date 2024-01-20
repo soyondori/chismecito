@@ -19,9 +19,9 @@ class Chismes
         return ChismeComment::create($args);
     }
 
-    public static function getAll(): Collection
+    public static function getAll($with = []): Collection
     {
-        return Chisme::all();
+        return Chisme::with($with)->get();
     }
 
     public static function get(string $id): Chisme

@@ -1,0 +1,92 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Chismes Api",
+        "contact": {
+            "email": "soyondori@gmail.com"
+        },
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "Chismes"
+                ],
+                "operationId": "getChismes",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ChismeResource"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": {
+                    "bearerAuth": {}
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ChismeResource": {
+                "title": "Chisme",
+                "description": "Chisme model",
+                "required": [
+                    "title",
+                    "content",
+                    "author_id"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "Class ChismeResource",
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "content": {
+                        "type": "string"
+                    },
+                    "author_id": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Chisme"
+                }
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Chismes",
+            "description": "API Endpoints of Chismes"
+        }
+    ]
+}
