@@ -11,7 +11,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @OA\Schema(
  *      title="Chisme",
  *      description="Chisme model",
- *      required={"title", "content", "author_id"},
+ *      required={"id", "title", "content", "author_id"},
  *      @OA\XML(
  *          name="Chisme"
  *      ),
@@ -20,10 +20,25 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *      @OA\Property(property="title", type="string"),
  *      @OA\Property(property="content", type="string"),
  *      @OA\Property(property="author_id", type="string"),
+ *      @OA\Property(
+ *          property="author", 
+ *          ref="#/components/schemas/UserResource"
+ *      ),
+ *      @OA\Property(
+ *          property="comments", 
+ *          type="array",
+ *          @OA\Items(ref="#/components/schemas/ChismeCommentResource")
+ *      ),
  * )
  */
 class ChismeResource extends JsonResource
 {
+
+    /**
+     * Transform the resource into an array.
+     *
+     * @return array<string, mixed>
+     */
     public function toArray(Request $request): array
     {
         $baseResource = [
@@ -36,6 +51,10 @@ class ChismeResource extends JsonResource
 
         if ($this->author) {
             $baseResource['author'] = new UserResource($this->author);
+        }
+
+        if ($this->comments) {
+            $baseResource['comments'] = ChismeCommentResource::collection($this->comments);
         }
 
         return $baseResource;

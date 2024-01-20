@@ -11,7 +11,7 @@ use Tests\TestCase;
 class ApiChismeTest extends TestCase
 {
     use RefreshDatabase;
-    public function test_a_user_can_get_chismes(): void 
+    public function test_get_chismes(): void 
     {
         $authors = User::factory()->count(3)->create();
         $authors->map(function ($author) {
@@ -23,12 +23,41 @@ class ApiChismeTest extends TestCase
             ['*']
         );
 
-        $response = $this->get('/api/chismes');
+        $response = $this
+            ->withHeader('accept','application/json')
+            ->get('/api/chismes');
+
         $response->assertOk();
         $response->assertJsonIsArray();
         $response->assertJsonStructure([
             '*' => $this->jsonChismeStructure()
         ]);
+    }
+
+    public function test_get_chismes_unauthenticated(): void
+    {
+        $response = $this
+            ->withHeader('accept','application/json')
+            ->get('/api/chismes');
+
+        $response->assertUnauthorized();
+    }
+
+    public function test_create_chisme(): void
+    {
+        Sanctum::actingAs(
+            User::factory()->create(),
+            ['*']
+        );
+
+        $response = $this
+            ->withHeader('accept','application/json')
+            ->postJson('/api/chismes', [
+                'title' => 'A really GOOD chisme',
+                'content' => '<h1>Fijate paty...</h1>'
+            ]);
+
+        $response->assertCreated();
     }
 
     protected function jsonChismeStructure()

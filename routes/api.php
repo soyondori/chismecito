@@ -21,4 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/chismes', [ApiChismeController::class, 'index']);
+    Route::post('/chismes', [ApiChismeController::class, 'store']);
 });

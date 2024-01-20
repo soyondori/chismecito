@@ -11,7 +11,7 @@ class ApiChismeController extends Controller
 {
     /**
      * @OA\Get(
-     *      path="/api/user",
+     *      path="/api/chismes",
      *      tags={"Chismes"},
      *      operationId="getChismes",
      *      security={"bearerAuth": {}},
@@ -40,11 +40,30 @@ class ApiChismeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *      path="/api/chismes",
+     *      tags={"Chismes"},
+     *      operationId="createChisme",
+     *      security={"bearerAuth": {}},
+     *      @OA\RequestBody(ref="#/components/requestBodies/Chisme"),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Chisme created",
+     *          @OA\JsonContent(ref="#/components/schemas/ChismeResource")
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation errors",
+     *          @OA\JsonContent(),
+     *      ),
+     * )
      */
     public function store(Request $request)
     {
-        //
+        $args = $request->all();
+        $args['author_id'] = $request->user()->id;
+        $chisme = Chismes::create($args);
+        return new ChismeResource($chisme);
     }
 
     /**
