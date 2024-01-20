@@ -8,9 +8,11 @@
       <x-text-input id="chisme-form" type="hidden" name="content" />
       <trix-editor class="mt-4" input="chisme-form"></trix-editor>
 
-      <x-primary-button type="submit" class="w-full mt-4 p-4 justify-center h-12">
-          {{ __('Save') }}
-      </x-primary-button>
+      <div class="w-full flex justify-end mt-4">
+        <x-primary-button type="submit" class="w-24 h-10 p-4 justify-center">
+            {{ __('Save') }}
+        </x-primary-button>
+      </div>
     </form>
   </div>
 </x-app-layout>

@@ -29,4 +29,9 @@ class Chismes
         return Chisme::with($with)->findOrFail($id);
     }
 
+    public static function getComments(string $id, $with = []): Collection
+    {
+        return ChismeComment::where('chisme_id', $id)->with($with)->get();
+    }
+
 }

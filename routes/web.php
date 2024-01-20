@@ -19,6 +19,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/chismes', [ChismeController::class, 'index'])->name('chismes');
     Route::get('/chismes/form', [ChismeController::class, 'create'])->name('chismes.create');
     Route::post('/chismes', [ChismeController::class, 'store'])->name('chismes.store');
+    Route::get('/chismes/{id}', [ChismeController::class, 'show'])->name('chismes.show');
+    Route::post('/chismes/comments', [ChismeController::class, 'comment'])->name('chismes.comments.store');
 });
 
 Route::middleware('auth')->group(function () {

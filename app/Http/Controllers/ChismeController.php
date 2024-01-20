@@ -41,32 +41,29 @@ class ChismeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Chisme $chisme)
+    public function show(Request $request, string $id)
     {
-        //
+        $chisme = Chismes::get($id, with: ['author']);
+        $comments = Chismes::getComments($id, with: ['author']);
+
+        return view('chismes.show', [
+            'chisme'=> $chisme,
+            'comments' => $comments
+        ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Create a comment.
      */
-    public function edit(Chisme $chisme)
+    public function comment(Request $request)
     {
-        //
-    }
+        $args = [
+            'content' => $request->content,
+            'author_id'=> $request->user()->id,
+            'chisme_id'=> $request->id
+        ];
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Chisme $chisme)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Chisme $chisme)
-    {
-        //
+        Chismes::comment($args);
+        return redirect()->route('chismes.show', ['id' => $request->id]);
     }
 }

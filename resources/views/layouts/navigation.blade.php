@@ -15,7 +15,7 @@
             <div class="flex justify-center items-center">
                 @if (!Route::is('chismes.create'))
                     <form method="GET" action="{{ route('chismes.create') }}">
-                        <x-primary-button class="w-full justify-center ms-3" type="submit">
+                        <x-primary-button class="w-full justify-center h-10 ms-3" type="submit">
                             {{ __('Write') }}
                         </x-primary-button>
                     </form>
